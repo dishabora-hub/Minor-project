@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    {% load static %}
+    
+    <script>
+        // Automatically hide messages after a few seconds
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                alert.style.display = 'none';
+            });
+        }, 3000);  // 3000 milliseconds = 3 seconds
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("{% static 'images/login_background.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .contact-container {
+            max-width: 400px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+        .contact-title {
+            font-size: 1.8em;
+            color: #ff7e5f;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .contact-container h2 {
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 1em;
+            text-align: left;
+        }
+        .contact-container p {
+            margin-bottom: 12px;
+            color: #666;
+            font-size: 0.85em;
+            text-align: left;
+        }
+        .contact-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .contact-container input,
+        .contact-container textarea {
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 13px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .contact-container textarea {
+            resize: vertical;
+            height: 70px;
+        }
+        .contact-container button {
+            padding: 10px;
+            background-color: #ff7e5f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .contact-container button:hover {
+            background-color: #0056b3;
+        }
+        .alert {
+            padding: 10px;
+            margin-bottom: 15px;
+            color: white;
+            background-color: #28a745;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="contact-container">
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <h1 class="contact-title">Contact Us</h1>
+    <h2>We'd love to hear from you</h2>
+    <p>We welcome any questions or feedback. Please complete this form and we'll be in contact soon.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>

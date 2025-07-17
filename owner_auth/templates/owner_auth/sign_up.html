@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        /* Full-page background image setup */
+        body {
+            font-family: Arial, sans-serif;
+            background: url("{% static 'images/login_background.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Elegant container styling */
+        .container {
+            background: rgba(255, 255, 255, 0.95); /* Slightly transparent white */
+            padding: 20px 30px 30px; /* Reduced top padding to 20px */
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+            width: 350px;
+            text-align: center;
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #ff7e5f, #feb47b) 1; /* Gradient border */
+        }
+
+        h2 {
+            margin-top: 0; /* Remove extra margin at the top */
+            margin-bottom: 15px; /* Adjust bottom margin if needed */
+            color: #444;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        /* Form group and input styling */
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #feb47b;
+            outline: none;
+        }
+
+        /* Button styling */
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #feb47b, #ff7e5f);
+        }
+
+        /* Icon container for admin login and signup */
+        .icon-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+            color: #444;
+        }
+
+        .icon-container a {
+            text-align: center;
+            color: #444;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .icon-container a:hover {
+            color: #feb47b;
+        }
+
+        .icon-container i {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        /* Remove warning style */
+        .warning {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Owner's Sign Up</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.email.label }}
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                {{ form.password1.label }}
+                {{ form.password1 }}
+            </div>
+            <div class="form-group">
+                {{ form.password2.label }}
+                {{ form.password2 }}
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <!-- Login and Sign Up links with icons -->
+        <div class="icon-container">
+            <a href="{% url 'owner_auth:log_in' %}">
+                <i class="fas fa-sign-in-alt"></i>
+                <p>Already have an account? Login here</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- FontAwesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>

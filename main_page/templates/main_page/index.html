@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitFusion</title>
+    <style>
+        /* Ensure html and body take full height */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Background image */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: url("{% static 'images/background.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            width: 100%; 
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+        }
+
+        /* Logo */
+        .navbar .logo img {
+            height: 80px;
+            margin-left: 20px;
+        }
+
+        /* Navigation links */
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 18px;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Centered content */
+        .center-content {
+            text-align: center;
+            color: white;
+            margin-top: 200px; /* Adjust to center vertically */
+            flex-direction: column;
+            width: 100%; 
+        }
+
+        /* 'Get Started' button */
+        .center-content .get-started {
+            font-size: 24px;
+            padding: 10px 25px;
+            background-color: red;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .center-content .get-started:hover {
+            background-color: black;
+        }
+
+        /* Logout button */
+        .logout-btn {
+            font-size: 18px;
+            color: white;
+            background-color: darkred;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+        /* Stylish website name */
+
+.website-name {
+    font-size: 32px;
+    font-weight: bold;
+    color:blanchedalmond; 
+    margin-left: 15px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
+}
+
+
+        .logout-btn:hover {
+            background-color: #ff6666;
+                    }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/fitfusion_logo1.png' %}" alt="FitFusion Logo">
+            <span class="website-name">FITFUSION</span>
+        
+        </div>
+        <div class="nav-links">
+            <a href="{% url 'main_page:homepage' %}">Home</a>
+            <a href="{% url 'main_page:aboutus' %}">About Us</a>
+            <a href="{% url 'main_page:contact_us' %}">Contact</a>
+            <form action="{% url 'main_page:logout' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
+    </div>
+
+    
+    <!-- Center Content -->
+    <div class="center-content">
+        <!-- Direct link to the user dashboard with a styled button -->
+        <a href="{% url 'user_dashboard' %}" class="get-started">Get Started</a>
+    </div>
+    
+
+</body>
+</html>
