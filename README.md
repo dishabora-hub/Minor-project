@@ -43,15 +43,19 @@ python -m venv .venv
 .venv\Scripts\activate   # On Windows
 
 2. Install dependencies
+   
 pip install -r requirements.txt
 
 3. Set up the database
 
 python manage.py makemigrations
+
 python manage.py migrate
 
 4. Run the server
+   
 python manage.py runserver
+
 Visit http://127.0.0.1:8000/ in your browser.
 
 📁 Project Structure
