@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's Exercises</title>
+    <style>
+        /* Set body and html to prevent scrollable overflow */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url("{% static 'images/login_background.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+        }
+
+        .exercise-container {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 30px;
+            background-color: lightslategray;
+            border-radius: 12px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+            overflow: hidden; /* Hide any overflow */
+            height: auto;
+        }
+
+        .exercise-container h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: orange;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .exercise-header {
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 20px;
+            color:orange;
+            font-weight: bold;
+        }
+
+        .exercise {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .exercise:hover {
+            background-color: rgba(0, 184, 216, 0.2);
+            transform: scale(1.02);
+            box-shadow: 0px 4px 12px rgba(0, 184, 216, 0.5);
+        }
+
+        .exercise h3 {
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            color:orange;
+            font-weight: bold;
+        }
+
+        .exercise p {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #f1f1f1;
+        }
+
+        .exercise p strong {
+            color:black;
+        }
+
+        /* Ensure the page content fits within the viewport */
+        @media (max-width: 768px) {
+            .exercise-container {
+                padding: 20px;
+            }
+
+            .exercise h3 {
+                font-size: 1.5em;
+            }
+
+            .exercise p {
+                font-size: 1em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="exercise-container">
+        <h1>Today's Exercises</h1>
+
+        <!-- Display the day and muscle group -->
+        {% if daily_exercise %}
+            <div class="exercise-header">
+                <p><strong>Day:</strong> {{ daily_exercise.day }}</p>
+                <p><strong>Muscle Group:</strong> {{ daily_exercise.muscle_group }}</p>
+            </div>
+        {% endif %}
+
+        <!-- Display exercises -->
+        {% if exercises %}
+            {% for exercise in exercises %}
+                <div class="exercise">
+                    <h3>{{ exercise.name }}</h3>
+                    
+                    <p><strong>Description:</strong> {{ exercise.description }}</p>
+                    <p><strong>Sets:</strong> {{ exercise.sets }}</p>
+                    <p><strong>Reps:</strong> {{ exercise.reps }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No exercises available for today.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
