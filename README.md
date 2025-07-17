@@ -39,6 +39,7 @@ workout guidance, and member management into one seamless solution.
 1. Create and activate a virtual environment
 
 python -m venv .venv
+
 .venv\Scripts\activate   # On Windows
 
 2. Install dependencies
