@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url({% static 'images/login_background.jpg' %});
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-attachment: fixed;
+        }
+     
+
+        .chat-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        .chatbox {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 10px;
+            background: #fafafa;
+            margin-bottom: 15px;
+            height: 100%;
+        }
+
+        .message {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        .user-message {
+            background-color: #d1f1ff;
+            align-self: flex-end;
+        }
+
+        .bot-message {
+            background-color: #e0f7fa;
+            align-self: flex-start;
+        }
+
+        #inputMessage {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        #sendButton {
+            width: 15%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #sendButton:hover {
+            background-color: #0056b3;
+        }
+
+        .message-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chat-container">
+        <h1>Chatbot Interface</h1>
+        <div class="chatbox" id="chatbox">
+            <div class="message-container">
+                <!-- Messages will appear here -->
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between;">
+            <input type="text" id="inputMessage" placeholder="Type your message..." />
+            <button id="sendButton">Send</button>
+        </div>
+
+        <!-- CSRF token -->
+        <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+    </div>
+
+    <script>
+        document.getElementById('sendButton').addEventListener('click', function () {
+            const message = document.getElementById('inputMessage').value;
+
+            if (message.trim()) {
+                // Display user message
+                const userMessageDiv = document.createElement('div');
+                userMessageDiv.classList.add('message', 'user-message');
+                userMessageDiv.textContent = message;
+                document.querySelector('.message-container').appendChild(userMessageDiv);
+
+                // Clear the input field
+                document.getElementById('inputMessage').value = '';
+
+                // Make the AJAX request to get the chatbot response
+                fetch('/chatbot/chatbot-response/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': document.getElementById('csrf_token').value // CSRF token added here
+                    },
+                    body: JSON.stringify({ message: message })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const botMessageDiv = document.createElement('div');
+                    botMessageDiv.classList.add('message', 'bot-message');
+                    botMessageDiv.textContent = data.response;
+                    document.querySelector('.message-container').appendChild(botMessageDiv);
+                    document.getElementById('chatbox').scrollTop = document.getElementById('chatbox').scrollHeight;  // Scroll to the bottom
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        });
+    </script>
+
+</body>
+</html>

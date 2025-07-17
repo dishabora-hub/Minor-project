@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and BMI Calculation</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Login and BMI Calculator</h1>
+
+        <!-- Login Form Container -->
+        <div class="form-container">
+            <h2>Login</h2>
+            <form method="POST" id="login-form">
+                {% csrf_token %}
+                {{ login_form.as_p }}
+                <button type="submit" name="login">Login</button>
+            </form>
+        </div>
+
+        <hr>
+
+        <!-- BMI Calculation Form Container -->
+        <div class="form-container">
+            <h2>BMI Calculation</h2>
+            <form method="POST" id="bmi-form">
+                {% csrf_token %}
+                {{ bmi_form.as_p }}
+                <button type="submit" name="calculate_bmi">Calculate BMI</button>
+            </form>
+
+            {% if bmi %}
+                <div class="result-container">
+                    <h3>Your BMI: {{ bmi }}</h3>
+                    <p>Name: {{ name }}</p>
+                    <p>Category: {{ category }}</p>  <!-- Display BMI Category -->
+                    <img src="data:image/png;base64,{{ image_uri }}" alt="BMI Graph">
+                    <br><a href="{% url 'bmi_view' %}">Calculate Again</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

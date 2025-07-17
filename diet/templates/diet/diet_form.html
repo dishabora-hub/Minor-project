@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet Preferences</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("{% static 'images/login_background.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #ffa743;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Flexbox for centering */
+            justify-content: center; /* Horizontal centering */
+            align-items: center; /* Vertical centering */
+            height: 100vh; /* Full viewport height */
+        }
+
+        .container {
+            width: 80%; /* Increased width */
+            max-width: 700px; /* Limits maximum width */
+            background: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+            padding: 30px; /* Increased padding for breathing space */
+            border-radius: 12px; /* More rounded corners */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Larger shadow for depth */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333333;
+            font-size: 2rem; /* Increased font size */
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #cccccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Diet Preferences</h1>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <label for="goal">What is your goal?</label>
+            <select id="goal" name="goal" required>
+                <option value="lose">Lose Weight</option>
+                <option value="gain">Gain Weight</option>
+            </select>
+            <label for="preference">Are you vegetarian or non-vegetarian?</label>
+            <select id="preference" name="preference" required>
+                <option value="veg">Vegetarian</option>
+                <option value="nonveg">Non-Vegetarian</option>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Your Information</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url("{% static 'images/login_background.jpg' %}") no-repeat center center fixed;
+            background-size: cover; /* Make sure the image covers the full viewport */
+            padding: 0;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        .container {
+            background-color:beige; /* Slight transparency for form */
+            padding: 40px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .form-field {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .form-field label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .form-field input,
+        .form-field select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s;
+        }
+
+        .form-field input:focus,
+        .form-field select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            background-color:#333;
+            color: white;
+            font-size: 1.2em;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Enter Your Information</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-field">
+                <label for="name">Name:</label>
+                {{ form.name }}
+            </div>
+            <div class="form-field">
+                <label for="age">Age:</label>
+                {{ form.age }}
+            </div>
+            <div class="form-field">
+                <label for="height_feet">Height (Feet):</label>
+                {{ form.height_feet }}
+            </div>
+            <div class="form-field">
+                <label for="height_inches">Height (Inches):</label>
+                {{ form.height_inches }}
+            </div>
+            <div class="form-field">
+                <label for="weight">Weight (kg):</label>
+                {{ form.weight }}
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Result</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url("{% static 'images/login_background.jpg' %}") no-repeat center center fixed;
+            background-size: cover; /* Ensure background image covers the screen */
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: orange;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .bmi-result {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .bmi-result p {
+            font-size: 1.2em;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .bmi-result .category {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #28a745; /* Green color for category */
+        }
+
+        .bmi-result .bmi-value {
+            font-size: 2em;
+            color: #00aeff; /* Blue color for BMI value */
+            font-weight: bold;
+        }
+
+        .bmi-result img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        .bmi-result a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 25px;
+            background-color: #00aeff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+
+        .bmi-result a:hover {
+            background-color: #0095b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+
+            .bmi-result p {
+                font-size: 1em;
+            }
+
+            .bmi-result .bmi-value {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>BMI Result for {{ name }}</h2>
+
+        <div class="bmi-result">
+            <p class="bmi-value">BMI: {{ bmi }}</p>
+            <p class="category">Category: {{ category }}</p> <!-- Display the BMI category -->
+            <img src="data:image/png;base64,{{ image_uri }}" alt="BMI Graph">
+            <br>
+            <a href="{% url 'bmi_view' %}">Calculate Again</a>
+        </div>
+    </div>
+</body>
+</html>

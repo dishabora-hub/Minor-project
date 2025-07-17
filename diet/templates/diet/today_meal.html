@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's Meal Plan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("{% static 'images/login_background.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: bisque;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffa743; /* Orange color */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        h2, h3 {
+            color: #ffa743;
+        }
+
+        .meal-section {
+            margin-top: 20px;
+            padding: 20px;
+            background-color:lightslategray; /* Transparent black background */
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .meal-section h2 {
+            color: #ffa743; /* Orange color for meal titles */
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+
+        .meal-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .meal-section ul li {
+            margin-bottom: 8px;
+        }
+
+        .meal-section ul li span {
+            font-weight: bold;
+            color: bisque; /* Beige color for labels */
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        .back-link a {
+            color: #ffa743;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        .back-button {
+            background-color: rgba(0, 0, 0, 0.8); /* Transparent black */
+            color: whitesmoke; /* White text */
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Today's Meal Plan</h1>
+        
+        {% if meals %}
+            <h2>Goal: {{ meals.first.goal|capfirst }} - {{ meals.first.diet_type|capfirst }} Diet</h2>
+            <h3>Meals for {{ day }}:</h3>
+            
+            {% for meal in meals %}
+                <div class="meal-section">
+                    <div>
+                        <h2>Breakfast</h2>
+                        <p><strong>Description:</strong> {{ meal.breakfast }}</p>
+                        <ul>
+                            <li><span>Ingredients:</span> {{ meal.breakfast_ingredients }}</li>
+                        </ul>
+                        <p><strong>Recipe:</strong> {{ meal.breakfast_recipe }}</p>
+                    </div>
+                    <div>
+                        <h2>Lunch</h2>
+                        <p><strong>Description:</strong> {{ meal.lunch }}</p>
+                        <ul>
+                            <li><span>Ingredients:</span> {{ meal.lunch_ingredients }}</li>
+                        </ul>
+                        <p><strong>Recipe:</strong> {{ meal.lunch_recipe }}</p>
+                    </div>
+                    <div>
+                        <h2>Snacks</h2>
+                        <p><strong>Description:</strong> {{ meal.snacks }}</p>
+                        <ul>
+                            <li><span>Ingredients:</span> {{ meal.snacks_ingredients }}</li>
+                        </ul>
+                        <p><strong>Recipe:</strong> {{ meal.snacks_recipe }}</p>
+                    </div>
+                    <div>
+                        <h2>Dinner</h2>
+                        <p><strong>Description:</strong> {{ meal.dinner }}</p>
+                        <ul>
+                            <li><span>Ingredients:</span> {{ meal.dinner_ingredients }}</li>
+                        </ul>
+                        <p><strong>Recipe:</strong> {{ meal.dinner_recipe }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No meal plan available for today. Please check back after submitting your preferences.</p>
+        {% endif %}
+
+        <div class="back-link">
+            <a href="{% url 'diet_form' %}" class="back-button">Back to Diet Preferences</a>
+        </div>
+    </div>
+</body>
+</html>
